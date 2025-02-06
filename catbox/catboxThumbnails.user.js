@@ -23,7 +23,8 @@
             const fixedExt = ext.toLowerCase()
                 .replace(/^pn$/, 'png')
                 .replace(/^jpe$/, 'jpeg')
-                .replace(/^jp$/, 'jpg');
+                .replace(/^jp$/, 'jpg')
+                .replace(/^web$/, 'webp');; // Add webp
 
             return '.' + fixedExt + (rest || '');
         });
@@ -68,7 +69,7 @@
     document.body.appendChild(toggleButton);
 
     // Regex to handle URLs and any character sequences up to 'g' after partial extensions
-    const urlRegex = /https:\/\/(?:files\.catbox\.moe|litter\.catbox\.moe)\/\S+?\.(pn.*?g|jpe.*?g|jp.*?g)/gi;
+    const urlRegex = /https:\/\/(?:files\.catbox\.moe|litter\.catbox\.moe)\/\S+?\.(web.*?p|pn.*?g|jpe.*?g|jp.*?g)/gi; // Add webp
 
     document.querySelectorAll('blockquote').forEach(blockquote => {
         let text = blockquote.innerHTML;
