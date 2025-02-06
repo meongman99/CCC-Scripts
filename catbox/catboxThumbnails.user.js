@@ -14,12 +14,18 @@
     let showThumbnails = false;
 
     const createImageLink = (url) => {
-        // Correct the URL to ensure it ends with the proper extension
-        url = url.replace(/<wbr>/gi, ''); // Remove any <wbr> tags
-        url = url.replace(/(pn|jpe|jp).*?g/gi, (match) => {
-            if (match.startsWith('pn')) return 'png';
-            if (match.startsWith('jpe')) return 'jpeg';
-            if (match.startsWith('jp')) return 'jpg';
+        // Remove any <wbr> tags first
+        url = url.replace(/<wbr>/gi, '');
+
+        // Fix file extension in the URL
+        url = url.replace(/\.([^.?#]+)([?#].*)?$/, (match, ext, rest) => {
+            // Fix common extensions
+            const fixedExt = ext.toLowerCase()
+                .replace(/^pn$/, 'png')
+                .replace(/^jpe$/, 'jpeg')
+                .replace(/^jp$/, 'jpg');
+
+            return '.' + fixedExt + (rest || '');
         });
 
         let link = document.createElement('a');
